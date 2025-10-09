@@ -42,4 +42,5 @@ if __name__ == "__main__":
             except ValueError:
                 print("Вы ввели не число. Попробуйте еще раз:")
     finally:
+        GPIO.setup(self.leds, GPIO.OUT, initial = 0)
         dac.deinit()
