@@ -22,16 +22,16 @@ class R2R_ADC:
         volts = [int(element) for element in bin(number)[2:].zfill(8)]
         GPIO.output(self.leds, volts)
     
-    def sequential_counting_adc(self):
-        for value in range(256):
-            time.sleep(self.compare_time)
-            signal = self.number_to_dac(value)
-            voltage = (value/256) * self.dynamic_range
-            comparatorValue = GPIO.input(self.comp_gpio)
-            if comparatorValue:
-                # print("ADC value = {:^3} -> {}, input voltage = {:.2f}".format(value, signal, voltage))
-                break
-        return value;        
+    # def sequential_counting_adc(self):
+    #     for value in range(256):
+    #         time.sleep(self.compare_time)
+    #         signal = self.number_to_dac(value)
+    #         voltage = (value/256) * self.dynamic_range
+    #         comparatorValue = GPIO.input(self.comp_gpio)
+    #         if comparatorValue:
+    #             # print("ADC value = {:^3} -> {}, input voltage = {:.2f}".format(value, signal, voltage))
+    #             break
+    #     return value;        
 
     def get_sc_voltage(self):
         return (self.sequential_counting_adc()/256) * self.dynamic_range
@@ -58,7 +58,7 @@ class R2R_ADC:
 
 
 if __name__ == "__main__":
-    dynamic_range = 3.2
+    dynamic_range = 3.3
     try:
         adc = R2R_ADC(dynamic_range)
         while True:
